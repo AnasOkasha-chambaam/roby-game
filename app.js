@@ -4,6 +4,7 @@
 
 var gCanvas = document.getElementById("gCanvas");
 var gCanvasOffset;
+let theImg = document.getElementById("the-img");
 var gctx = gCanvas.getContext("2d");
 var CANVAS_WIDTH = gCanvas.width;
 var CANVAS_HEIGHT = gCanvas.height;
@@ -174,6 +175,7 @@ class PathFindingAlg {
       closedSet.add(currentNode);
 
       //might need to put this after getNighbors.... then replace closedSet.hasIn(neighborNode with currentNode
+      gctx.drawImage(theImg, currentNode.posx, currentNode.posy, 39, 39);
       if (currentNode.id == startNode.id) {
         currentNode.drawNode();
       }
@@ -238,6 +240,7 @@ class Grid {
     gctx.strokeStyle = "black";
     gctx.rect(0, 0, this.width, this.height);
     gctx.stroke();
+    gctx.drawImage(theImg, startPoint.x, startPoint.y, 39, 39);
 
     for (var i = 0; i < this.width; i += NODESIZE) {
       gridPointsByPos[i] = [];
@@ -275,6 +278,7 @@ class Grid {
         countNodes++;
       }
     }
+    gctx.drawImage(theImg, startPoint.x, startPoint.y, 39, 39);
   }
 }
 //the grid will be the exact size of the canvas
@@ -304,13 +308,14 @@ function retracePath(startNode, endNode) {
     currentNode.inPath = true;
     if (currentNode != startNode) currentNode.drawPath();
   }
-  console.log(path);
+  // console.log(path);
 
   reverseArray = Array.from(path);
 
   reverseArray.reverse();
   path = new Set(reverseArray);
-  console.log(path);
+  // console.log(path);
+  thePath = path;
 }
 //list of neighbors
 function getNeighbors(node) {
@@ -397,6 +402,9 @@ document
     reset();
     myPath = new PathFindingAlg(grid, startPoint, endPoint);
     myPath.findPath();
+    setTimeout(() => {
+      animateRoby();
+    }, 550);
   });
 //tells the canvas what to do when clicked
 gCanvas.addEventListener(
@@ -414,7 +422,9 @@ gCanvas.addEventListener(
       ) {
         if (mode === "startPoint") {
           startPoint = new Vec2(element.posx, element.posy);
+          console.log(startPoint);
           reset();
+          gctx.drawImage(theImg, startPoint.x, startPoint.y, 39, 39);
         } else if (mode === "wall") {
           //Starting to work out resets without clearning walls, so wallSet doesn't do much yet.
           wallSet.add(element.id);
@@ -431,3 +441,72 @@ gCanvas.addEventListener(
   },
   false
 );
+
+// the animation function
+// for animation's seak
+
+let x, y, dx, dy, thePath, theCurrEl, theNextEl, myReq;
+x = 0;
+y = 0;
+dx = 4;
+dy = 4;
+let i = 0;
+function animateRoby() {
+  reset();
+  thePath = Array.from(thePath);
+  theCurrEl = theCurrEl || thePath[x];
+  theNextEl = theNextEl || thePath[x + 1] || theCurrEl;
+  myReq = requestAnimationFrame(animateRoby);
+  console.log(thePath.length);
+  console.log(thePath.length);
+  console.log(x == thePath.length);
+  if (x == thePath.length) {
+    i = 0;
+    theCurrEl = undefined;
+    theNextEl = undefined;
+    x = 0;
+    y = 0;
+    return cancelAnimationFrame(myReq);
+  }
+  // console.log(thePath[0]);
+  // console.log(theCurrEl.posy, theCurrEl.posx);
+  // console.log(theNextEl.posy, theNextEl.posx);
+  gctx.beginPath();
+  // console.log(thePath[0].po);
+  // for (i = 0; i < thePath.length; i++) {
+  gctx.drawImage(theImg, theCurrEl.posx, theCurrEl.posy, 39, 39);
+  // }
+  // console.log(theNextEl.posx - theCurrEl.posx > 1);
+  if (theNextEl.posx - theCurrEl.posx > 0) {
+    theCurrEl.posx += dx;
+  }
+  if (theNextEl.posx - theCurrEl.posx < 0) {
+    theCurrEl.posx -= dx;
+  }
+  // console.log(theNextEl.posy - theCurrEl.posy > 1);
+  if (theNextEl.posy - theCurrEl.posy > 0) {
+    theCurrEl.posy += dy;
+  }
+  if (theNextEl.posy - theCurrEl.posy < 0) {
+    theCurrEl.posy -= dy;
+  }
+  if (theCurrEl.posx == theNextEl.posx && theCurrEl.posy == theNextEl.posy) {
+    theCurrEl = undefined;
+    theNextEl = undefined;
+    x++;
+    console.log("heyy");
+  }
+  // theCurrEl.posy += dy;
+  i++;
+  // console.log(thePath.length);
+
+  // if (x + 39 > innerWidth || x - 39 < 0) {
+  //   dx = -dx;
+  // }
+  // if (y + 39 > innerHeight || y - 39 < 0) {
+  //   dy = -dy;
+  // }
+  // x++;
+  // y++ ;
+  // console.log(innerHeight, innerWidth);
+}

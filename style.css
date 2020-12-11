@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Langar&display=swap");
+
+body {
+  background-color: #1d3557;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 0;
+}
+
+.ptb {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.instructions {
+  display: block;
+
+  width: 800px;
+  position: relative;
+}
+
+.btn {
+  padding: 10px;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Langar", cursive;
+  transition-property: transform;
+  transition-duration: 0.4s;
+  transition-timing-function: ease-in-out;
+  outline: none;
+  border: none;
+}
+
+.btn.stone {
+  background-color: #8e9aaf;
+  color: #1b1b1b;
+}
+
+.btn.roby {
+  /* background-color: #caffbf; */
+  background-color: #bdb2ff;
+  color: #1b1b1b;
+}
+
+.btn.stop {
+  background-color: #ffadad;
+  color: #1b1b1b;
+}
+
+.btn.find {
+  background-color: #caffbf;
+}
+
+.btn.clear {
+  background-color: #f72585;
+  color: #f3f3f3;
+}
+
+.btn.clear-all {
+  background-color: #d90429;
+  color: #f3f3f3;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.grid_holder {
+  width: 800px;
+  margin-top: 20px;
+}
+
+.the-btns {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  background-color: #1b1b1b;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}

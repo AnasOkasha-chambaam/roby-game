@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Pathfinding Task</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <ul class="the-btns">
+        <!-- <div class="row"> -->
+        <li id="btnWall" class="btn stone to-choose">Stone</li>
+
+        <li id="btnStartPoint" class="btn roby to-choose">Roby</li>
+        <li id="btnEndPoint" class="btn stop to-choose">Stop</li>
+        <li id="btnBeginPathFind" class="btn find">Find the path</li>
+        <!-- </div> -->
+        <!-- <div class="row"> -->
+        <li id="btnReset" class="btn clear">Clear Path</li>
+
+        <li id="wallReset" class="btn clear-all">Clear Path and Reset Walls</li>
+        <!-- </div> -->
+      </ul>
+    </div>
+
+    <!-- <h2>This is a test game map in the form of a grid.</h2> -->
+
+    <!--[if IE]>
+      <p>Sorry, but this example doesn't run on IE.</p>
+      .<!
+    [endif]-->
+    <canvas id="gCanvas" width="800" height="800"></canvas>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"
+      integrity="sha512-kp7YHLxuJDJcOzStgd6vtpxr4ZU9kjn77e6dBsivSz+pUuAuMlE2UTdKB7jjsWT84qbS8kdCWHPETnP/ctrFsA=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"
+      integrity="sha512-pBSlhNUvB+td6sjW1zmR6L7c7kVWR4octUPl4tfHmzO63424nxta8aLmficEcAAswQmRqTiToi63AazDurj/Sg=="
+      crossorigin="anonymous"
+    ></script> -->
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -445,7 +445,15 @@ gCanvas.addEventListener(
 // the animation function
 // for animation's seak
 
-let x, y, dx, dy, thePath, theCurrEl, theNextEl, myReq;
+let x,
+  y,
+  dx,
+  dy,
+  thePath,
+  theCurrEl,
+  theNextEl,
+  myReq,
+  theWinImg = document.getElementById("the-win-img");
 x = 0;
 y = 0;
 dx = 4;
@@ -466,6 +474,13 @@ function animateRoby() {
     theNextEl = undefined;
     x = 0;
     y = 0;
+    gctx.drawImage(
+      theWinImg,
+      thePath[thePath.length - 1].posx,
+      thePath[thePath.length - 1].posy,
+      39,
+      39
+    );
     return cancelAnimationFrame(myReq);
   }
   // console.log(thePath[0]);

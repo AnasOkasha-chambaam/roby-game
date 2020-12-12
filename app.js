@@ -1,5 +1,5 @@
 //current version traces path backwards through to start Node.
-
+let myEndNode;
 //this would normally be split across multiple files, however for ease of use with codepen, I decided to place all of it here.
 
 var gCanvas = document.getElementById("gCanvas");
@@ -185,11 +185,11 @@ class PathFindingAlg {
       if (currentNode.walkable == false) {
         currentNode.drawNode();
       }
-
+      myEndNode = undefined;
       if (currentNode.id == endNode.id) {
+        myEndNode = endNode;
         retracePath(startNode, endNode);
         //hit the last point, exit's the loop.
-
         return; //exits loop
       }
       getNeighbors(currentNode).forEach(function (neighbor) {
@@ -219,6 +219,11 @@ class PathFindingAlg {
           }
         }
       });
+    }
+    if (!myEndNode) {
+      setTimeout(() => {
+        reset();
+      }, 600);
     }
   }
 }
@@ -315,6 +320,15 @@ function retracePath(startNode, endNode) {
   reverseArray.reverse();
   path = new Set(reverseArray);
   // console.log(path);
+  if (myEndNode == endNode) {
+    setTimeout(() => {
+      animateRoby();
+    }, 500);
+  } else if (myEndNode != endNode) {
+    setTimeout(() => {
+      reset();
+    }, 500);
+  }
   thePath = path;
 }
 //list of neighbors
@@ -402,9 +416,6 @@ document
     reset();
     myPath = new PathFindingAlg(grid, startPoint, endPoint);
     myPath.findPath();
-    setTimeout(() => {
-      animateRoby();
-    }, 550);
   });
 //tells the canvas what to do when clicked
 gCanvas.addEventListener(
@@ -427,9 +438,16 @@ gCanvas.addEventListener(
           gctx.drawImage(theImg, startPoint.x, startPoint.y, 39, 39);
         } else if (mode === "wall") {
           //Starting to work out resets without clearning walls, so wallSet doesn't do much yet.
-          wallSet.add(element.id);
-          element.toggleWalkable();
-          element.drawNode();
+          console.log(true);
+          if (wallSet.has(element.id)) {
+            wallSet.delete(element.id);
+            element.toggleWalkable();
+            element.drawNode();
+          } else {
+            wallSet.add(element.id);
+            element.toggleWalkable();
+            element.drawNode();
+          }
         } else if (mode === "endPoint") {
           endPoint = new Vec2(element.posx, element.posy);
           reset();
